@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AI Chatbot</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background-color: #f0f0f0;
+            }
+
+            h1 {
+                margin-top: 20px;
+                color: #333;
+            }
+
+            #chat-container {
+                width: 80%;
+                max-width: 600px;
+                background: #fff;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                margin-top: 20px;
+            }
+
+            #chat-box {
+                padding: 20px;
+                height: 400px;
+                overflow-y: auto;
+                border-bottom: 1px solid #ccc;
+            }
+
+            .message {
+                margin-bottom: 15px;
+                padding: 10px;
+                border-radius: 5px;
+                width: fit-content;
+                max-width: 80%;
+            }
+
+            .user-message {
+                background-color: #007bff;
+                color: white;
+                align-self: flex-end;
+            }
+
+            .bot-message {
+                background-color: #e0e0e0;
+                align-self: flex-start;
+            }
+
+            #input-container {
+                display: flex;
+                padding: 10px;
+                background: #f9f9f9;
+            }
+
+            #user-input {
+                flex: 1;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                font-size: 16px;
+            }
+
+            #send-button {
+                padding: 10px 20px;
+                border: none;
+                background: #007bff;
+                color: white;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-left: 10px;
+                font-size: 16px;
+            }
+
+            #send-button:hover {
+                background: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Welcome to My AI Chatbot</h1>
+        <div id="chat-container">
+            <div id="chat-box"></div>
+            <div id="input-container">
+                <input type="text" id="user-input" placeholder="Type your message here..." />
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+        <script>
+            const chatBox = document.getElementById('chat-box');
+            const userInput = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+
+            sendButton.addEventListener('click', () => {
+                const userMessage = userInput.value.trim();
+                if (userMessage) {
+                    addMessage('user', userMessage);
+                    userInput.value = '';
+                    getBotResponse(userMessage);
+                }
+            });
+
+            userInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendButton.click();
+                }
+            });
+
+            function addMessage(sender, message) {
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                if (sender === 'user') {
+                    messageElement.classList.add('user-message');
+                } else {
+                    messageElement.classList.add('bot-message');
+                }
+                messageElement.innerText = message;
+                chatBox.appendChild(messageElement);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+
+            function getBotResponse(userMessage) {
+                // Dummy bot response
+                setTimeout(() => {
+                    const botMessage = "This is a dummy response for: " + userMessage;
+                    addMessage('bot', botMessage);
+                }, 500);
+            }
+        </script>
+    </body>
+</html>
